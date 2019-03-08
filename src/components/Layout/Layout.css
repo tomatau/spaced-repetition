@@ -1,0 +1,28 @@
+:root {
+  --width: 500px;
+}
+
+.Layout__header,
+.Layout__section {
+  max-width: var(--width);
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.Layout__full-width {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  background-color: var(--white);
+  padding-left: calc((100% - var(--width)) / 2 + 20px);
+  padding-right: calc((100% - var(--width)) / 2 + 20px);
+}
+
+.Layout__full-width--green {
+  background-color: var(--dark-green);
+}
+
+.Layout__full-width--green * {
+  color: var(--white);
+}

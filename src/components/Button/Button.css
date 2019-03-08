@@ -1,0 +1,10 @@
+
+.Button {
+  border: 1px solid var(--light-grey);
+  background-color: var(--yellow);
+  color: var(--dark);
+  font-size: 1.1em;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-weight: bold;
+}

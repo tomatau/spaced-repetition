@@ -1,0 +1,17 @@
+.Header {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.Header__title {
+  margin: 0;
+}
+
+.Header__title a {
+  color: var(--orange);
+  text-decoration: none;
+}
+
+.Header nav {
+  text-align: right;
+}

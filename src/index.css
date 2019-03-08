@@ -1,14 +1,49 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Ubuntu", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+:root {
+  /* setup a colour pallet to use throughout styles */
+  --black: #2D2A2A;
+  --dark: #483D3F;
+  --dark-grey: #605A57;
+  --grey: #7C726E;
+  --light-grey: #A39A92;
+  --light: #D0D3D6;
+  --white: #ECECEC;
+  --yellow: #ECA72C;
+  --green: #3f8d36;
+  --orange: #e07000;
+  --red: #C14732;
+  --light-blue: #1098F7;
+  --dark-green: #255020;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--black);
+  margin: 0;
+}
+
+p {
+  color: var(--dark);
+}
+
+a,
+a:visited,
+a:focus {
+  color: var(--orange);
+}
+
+a:hover {
+  color: var(--green);
 }
