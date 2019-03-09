@@ -7,8 +7,9 @@ class RegistrationRoute extends Component {
     return (
       <Section className='RegistrationRoute'>
         <p className='Header__description'>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+          Practice learning a language with the spaced reptition revision technique.
         </p>
+        <h2>Sign up</h2>
         <RegistrationForm />
       </Section>
     );

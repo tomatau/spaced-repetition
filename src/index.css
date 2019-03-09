@@ -47,3 +47,11 @@ a:focus {
 a:hover {
   color: var(--green);
 }
+
+[role=alert] {
+  color: var(--red);
+}
+
+section > h2 {
+  margin-bottom: 20px;
+}

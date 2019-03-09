@@ -6,11 +6,13 @@ class LearnWordForm extends Component {
   handleSubmit = ev => {
     ev.preventDefault()
   }
+
   render() {
     return (
       <form
+        className='LearnWordForm'
         onSubmit={this.handleSubmit}
-        className='LearnWordForm'>
+      >
         <div className='LearnWordForm__word-input'>
           <Label htmlFor='learn-word-input'>
             What's the translation for this word?

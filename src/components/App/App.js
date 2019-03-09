@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import Header from '../Header/Header'
+import PrivateRoute from '../PrivateRoute/PrivateRoute'
+import PublicOnlyRoute from '../PublicOnlyRoute/PublicOnlyRoute'
 import RegistrationRoute from '../../routes/RegistrationRoute/RegistrationRoute'
 import LoginRoute from '../../routes/LoginRoute/LoginRoute'
 import LearningRoute from '../../routes/LearningRoute/LearningRoute'
@@ -14,16 +16,16 @@ class App extends Component {
         <Header />
         <main className='App__main'>
           <Switch>
-            <Route
+            <PrivateRoute
               exact
               path={'/'}
               component={LearningRoute}
             />
-            <Route
+            <PublicOnlyRoute
               path={'/register'}
               component={RegistrationRoute}
             />
-            <Route
+            <PublicOnlyRoute
               path={'/login'}
               component={LoginRoute}
             />

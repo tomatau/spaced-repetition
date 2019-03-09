@@ -10,8 +10,9 @@ class RegistrationForm extends Component {
   render() {
     return (
       <form
+        className='RegistrationForm'
         onSubmit={this.handleSubmit}
-        className='RegistrationForm'>
+      >
         <div className='RegistrationForm__name-input'>
           <Label htmlFor='registration-name-input'>
             Enter your name <Required />
