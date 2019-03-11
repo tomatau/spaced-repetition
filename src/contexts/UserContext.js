@@ -7,6 +7,7 @@ const UserContext = React.createContext({
   setError: () => { },
   clearError: () => { },
   setUser: () => { },
+  loadUserFromToken: () => { },
 })
 
 export default UserContext
@@ -17,17 +18,8 @@ export class UserProvider extends Component {
     error: null,
   };
 
-  setUser = () => {
-    const jwtPayload = TokenService.parseAuthToken()
-    if (jwtPayload) {
-      this.setState({
-        user: {
-          id: jwtPayload.user_id,
-          name: jwtPayload.name,
-          username: jwtPayload.sub,
-        },
-      })
-    }
+  setUser = user => {
+    this.setState({ user })
   }
 
   setError = error => {
@@ -39,8 +31,19 @@ export class UserProvider extends Component {
     this.setState({ error: null })
   }
 
+  loadUserFromToken = () => {
+    const jwtPayload = TokenService.parseAuthToken()
+    if (jwtPayload) {
+      this.setUser({
+        id: jwtPayload.user_id,
+        name: jwtPayload.name,
+        username: jwtPayload.sub,
+      })
+    }
+  }
+
   componentDidMount() {
-    this.setUser()
+    this.loadUserFromToken()
   }
 
   render() {
@@ -50,6 +53,7 @@ export class UserProvider extends Component {
       setError: this.setError,
       clearError: this.clearError,
       setUser: this.setUser,
+      loadUserFromToken: this.loadUserFromToken,
     }
     return (
       <UserContext.Provider value={value}>

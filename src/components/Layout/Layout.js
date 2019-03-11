@@ -11,12 +11,12 @@ export function Section({ className, ...props }) {
   )
 }
 
-export function FullWidth({ className, green, ...props }) {
+export function FullWidth({ className, darker, ...props }) {
   return (
     <div
       className={cx({
         'Layout__full-width': true,
-        'Layout__full-width--green': green,
+        'Layout__full-width--darker': darker,
       }, className)}
       {...props}
     />
