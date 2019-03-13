@@ -19,13 +19,14 @@ body {
   --dark-grey: #605A57;
   --grey: #7C726E;
   --light-grey: #A39A92;
+  --pale-grey: #f5f3f2;
   --light: #D0D3D6;
-  --white: #ECECEC;
+  --white: #fdfeff;
   --yellow: #ECA72C;
-  --green: #3f8d36;
+  --green: #398031;
   --orange: #c75000;
   --red: #C14732;
-  --light-blue: #1098F7;
+  --light-blue: #0472bf;
   --dark-green: #255020;
 }
 

@@ -1,0 +1,28 @@
+
+.ListList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ListList__item {
+  margin-bottom: 10px;
+}
+
+.ListList a {
+  text-decoration: none;
+  cursor: pointer;
+  display: block;
+  padding: 10px;
+  background-color: var(--pale-grey);
+  display: flex;
+  justify-content: space-between;
+}
+
+.ListList__item a:hover {
+  background-color: var(--light);
+}
+
+.ListList__item-score {
+  color: var(--light-blue);
+}

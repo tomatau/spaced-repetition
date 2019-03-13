@@ -2,8 +2,8 @@ import config from '../config'
 import TokenService from './token-service'
 
 const ListApiService = {
-  getHead() {
-    return fetch(`${config.API_ENDPOINT}/list/1/head`, {
+  getLists() {
+    return fetch(`${config.API_ENDPOINT}/list/`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
@@ -16,8 +16,22 @@ const ListApiService = {
           : res.json()
       )
   },
-  postGuess({ guess }) {
-    return fetch(`${config.API_ENDPOINT}/list/1/guess`, {
+  getHead(listId) {
+    return fetch(`${config.API_ENDPOINT}/list/${listId}/head`, {
+      method: 'GET',
+      headers: {
+        'content-type': 'application/json',
+        'authorization': `bearer ${TokenService.getAuthToken()}`,
+      },
+    })
+      .then(res =>
+        (!res.ok)
+          ? res.json().then(err => Promise.reject(err))
+          : res.json()
+      )
+  },
+  postGuess(listId, guess) {
+    return fetch(`${config.API_ENDPOINT}/list/${listId}/guess`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',

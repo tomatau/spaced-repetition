@@ -11,11 +11,17 @@ class LearnWordForm extends Component {
 
   handleSubmit = ev => {
     ev.preventDefault()
+    const { listId } = this.props
     const { guess } = ev.target
-    ListApiService.postGuess({ guess: guess.value })
+
+    this.context.setGuess(guess.value)
+    ListApiService.postGuess(listId, guess.value)
       .then(head => {
-        this.context.setNextWord(head.nextWord)
+        this.context.setPrevWord(this.context.nextWord)
         this.context.setScore(head.listScore)
+        this.context.setNextWord(head.nextWord)
+        this.context.setIsCorrect(head.isCorrect)
+        this.context.setAnswer(head.answer)
         guess.value = ''
       })
       .catch(res => {

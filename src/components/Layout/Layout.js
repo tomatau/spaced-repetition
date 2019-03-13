@@ -2,10 +2,12 @@ import React from 'react'
 import cx from 'classnames'
 import './Layout.css'
 
-export function Section({ className, ...props }) {
+export function Section({ className, wider, ...props }) {
   return (
     <section
-      className={['Layout__section', className].join(' ')}
+      className={cx(['Layout__section', className], {
+        'Layout__section--wider': wider,
+      })}
       {...props}
     />
   )

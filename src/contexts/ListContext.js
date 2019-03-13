@@ -1,31 +1,33 @@
 import React, { Component } from 'react'
 
-const ListContext = React.createContext({
-  nextWord: null,
+const initialState = {
   score: 0,
+  nextWord: null,
+  guess: null,
+  prevWord: null,
+  isCorrect: null,
+  answer: null,
   error: null,
+}
+
+const ListContext = React.createContext({
+  ...initialState,
   setError: () => { },
   clearError: () => { },
   setNextWord: () => { },
   setScore: () => { },
+  setGuess: () => { },
+  setAnswer: () => { },
+  setIsCorrect: () => { },
+  reset: () => { },
 })
 
 export default ListContext
 
 export class ListProvider extends Component {
   state = {
-    nextWord: null,
-    score: 0,
-    error: null,
+    ...initialState,
   };
-
-  setNextWord = nextWord => {
-    this.setState({ nextWord })
-  }
-
-  setScore = score => {
-    this.setState({ score })
-  }
 
   setError = error => {
     console.error(error)
@@ -36,15 +38,56 @@ export class ListProvider extends Component {
     this.setState({ error: null })
   }
 
+  setScore = score => {
+    this.setState({ score })
+  }
+
+  setNextWord = nextWord => {
+    this.setState({ nextWord })
+  }
+
+  setGuess = guess => {
+    this.setState({ guess })
+  }
+
+  setPrevWord = prevWord => {
+    this.setState({ prevWord })
+  }
+
+  setIsCorrect = isCorrect => {
+    this.setState({ isCorrect })
+  }
+
+  setAnswer = answer => {
+    this.setState({ answer })
+  }
+
+  reset = () => {
+    this.setState({
+      ...initialState,
+    })
+  }
+
   render() {
     const value = {
-      nextWord: this.state.nextWord,
+      // values
       score: this.state.score,
+      nextWord: this.state.nextWord,
+      guess: this.state.guess,
+      prevWord: this.state.prevWord,
+      isCorrect: this.state.isCorrect,
+      answer: this.state.answer,
       error: this.state.error,
+      // methods
       setError: this.setError,
       clearError: this.clearError,
-      setNextWord: this.setNextWord,
       setScore: this.setScore,
+      setNextWord: this.setNextWord,
+      setGuess: this.setGuess,
+      setPrevWord: this.setPrevWord,
+      setIsCorrect: this.setIsCorrect,
+      setAnswer: this.setAnswer,
+      reset: this.reset,
     }
     return (
       <ListContext.Provider value={value}>

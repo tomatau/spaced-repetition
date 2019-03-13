@@ -5,6 +5,7 @@ import PrivateRoute from '../PrivateRoute/PrivateRoute'
 import PublicOnlyRoute from '../PublicOnlyRoute/PublicOnlyRoute'
 import RegistrationRoute from '../../routes/RegistrationRoute/RegistrationRoute'
 import LoginRoute from '../../routes/LoginRoute/LoginRoute'
+import ListListRoute from '../../routes/ListListRoute/ListListRoute'
 import LearningRoute from '../../routes/LearningRoute/LearningRoute'
 import NotFoundRoute from '../../routes/NotFoundRoute/NotFoundRoute'
 import './App.css'
@@ -19,6 +20,10 @@ class App extends Component {
             <PrivateRoute
               exact
               path={'/'}
+              component={ListListRoute}
+            />
+            <PrivateRoute
+              path={'/list/:listId'}
               component={LearningRoute}
             />
             <PublicOnlyRoute
