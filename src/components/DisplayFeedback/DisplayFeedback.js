@@ -25,12 +25,12 @@ class DisplayFeedback extends Component {
         DisplayFeedback__false: !isCorrect,
       })}>
         {isCorrect
-          ? <p className='DisplayFeedback__win'>
+          ? <h2 className='DisplayFeedback__win'>
               You were correct! :D
-            </p>
-          : <p className='DisplayFeedback__lose'>
+            </h2>
+          : <h2 className='DisplayFeedback__lose'>
               Good try, but not quite right :(
-            </p>}
+            </h2>}
         <p>
           The correct translation for{' '}
           <span className='DisplayFeedback__word'>
