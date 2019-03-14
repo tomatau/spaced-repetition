@@ -10,7 +10,7 @@ class Header extends Component {
   static contextType = UserContext
 
   handleLogoutClick = () => {
-    TokenService.clearAuthToken()
+    this.context.processLogout()
   }
 
   renderLogoutLink() {
