@@ -7,8 +7,14 @@ import './DisplayFeedback.css'
 class DisplayFeedback extends Component {
   static contextType = ListContext
 
+  nextButton = React.createRef()
+
   goToNextWord = () => {
     this.context.setIsCorrect(null)
+  }
+
+  componentDidMount() {
+    this.nextButton.current.focus()
   }
 
   render() {
@@ -41,6 +47,7 @@ class DisplayFeedback extends Component {
           </span>!
         </p>
         <Button
+          ref={this.nextButton}
           className='DisplayFeedback__next-word-button'
           onClick={this.goToNextWord}>
           Try another word!

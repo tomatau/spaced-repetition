@@ -25,7 +25,7 @@ body {
   --yellow: #ECA72C;
   --green: #398031;
   --orange: #c75000;
-  --red: #C14732;
+  --red: #8d0426;
   --light-blue: #0472bf;
   --dark-green: #255020;
 }
@@ -49,7 +49,7 @@ a:hover {
   color: var(--green);
 }
 
-[role=alert] {
+[role=alert] * {
   color: var(--red);
 }
 

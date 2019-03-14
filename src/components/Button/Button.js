@@ -1,8 +1,11 @@
 import React from 'react'
+import cx from 'classnames'
 import './Button.css'
 
-export default function Button({ className, ...props }) {
+const Button = React.forwardRef(({ className, ...props }, ref) => {
   return (
-    <button className={['Button', className].join(' ')} {...props} />
+    <button className={cx('Button', className)} ref={ref} {...props} />
   )
-}
+})
+
+export default Button

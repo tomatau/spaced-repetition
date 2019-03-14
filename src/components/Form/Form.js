@@ -1,21 +1,22 @@
 import React from 'react'
+import cx from 'classnames'
 import './Form.css'
 
 export function Label({ className, ...props }) {
   return (
-    <label className={['Label', className].join(' ')} {...props} />
+    <label className={cx('Label', className)} {...props} />
   )
 }
 
-export function Input({ className, ...props }) {
+export const Input =  React.forwardRef(({ className, ...props }, ref) => {
   return (
-    <input className={['Input', className].join(' ')} type='text' {...props} />
+    <input className={cx('Input', className)} type='text' ref={ref} {...props} />
   )
-}
+})
 
 export function Required({ className, ...props }) {
   return (
-    <span className={['Required', className].join(' ')} {...props}>
+    <span className={cx('Required', className)} {...props}>
       &#42;
     </span>
   )
@@ -23,6 +24,6 @@ export function Required({ className, ...props }) {
 
 export function Textarea({ className, ...props }) {
   return (
-    <textarea className={['Textarea', className].join(' ')} {...props} />
+    <textarea className={cx('Textarea', className)} {...props} />
   )
 }

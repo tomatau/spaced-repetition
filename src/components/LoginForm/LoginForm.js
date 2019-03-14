@@ -13,6 +13,8 @@ class LoginForm extends Component {
 
   state = { error: null }
 
+  firstInput = React.createRef()
+
   handleSubmit = ev => {
     ev.preventDefault()
     const { username, password } = ev.target
@@ -35,6 +37,10 @@ class LoginForm extends Component {
       })
   }
 
+  componentDidMount() {
+    this.firstInput.current.focus()
+  }
+
   render() {
     const { error } = this.state
     return (
@@ -50,6 +56,7 @@ class LoginForm extends Component {
             Username
           </Label>
           <Input
+            ref={this.firstInput}
             id='login-username-input'
             name='username'
             required

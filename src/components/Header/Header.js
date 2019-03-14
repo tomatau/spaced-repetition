@@ -17,6 +17,8 @@ class Header extends Component {
     return (
       <div className='Header__logged-in'>
         <span className='Header__user-name'>
+          <FontAwesomeIcon icon='user-circle' />
+          {' '}
           {this.context.user.name}
         </span>
         <nav>

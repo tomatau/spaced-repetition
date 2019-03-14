@@ -1,12 +1,24 @@
 
-.ListList {
+.ListList__title {
+  margin: 0 10px 40px;
+}
+
+.ListList__list {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
 
+.ListList__no-list {
+  margin: 0 10px;
+}
+
 .ListList__item {
   margin-bottom: 10px;
+}
+
+.ListList__item-name {
+  color: var(--dark-grey);
 }
 
 .ListList a {
@@ -17,6 +29,7 @@
   background-color: var(--pale-grey);
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .ListList__item a:hover {

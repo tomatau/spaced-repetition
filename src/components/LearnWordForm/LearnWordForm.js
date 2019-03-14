@@ -5,9 +5,15 @@ import { Input, Label } from '../Form/Form'
 import Button from '../Button/Button'
 
 class LearnWordForm extends Component {
+  static defaultProps = {
+    listId: null
+  }
+
   static contextType = ListContext
 
   state = { error: null }
+
+  firstInput = React.createRef()
 
   handleSubmit = ev => {
     ev.preventDefault()
@@ -29,6 +35,10 @@ class LearnWordForm extends Component {
       })
   }
 
+  componentDidMount() {
+    this.firstInput.current.focus()
+  }
+
   render() {
     const { error } = this.state
     return (
@@ -44,6 +54,7 @@ class LearnWordForm extends Component {
             What's the translation for this word?
           </Label>
           <Input
+            ref={this.firstInput}
             id='learn-guess-input'
             name='guess'
             required

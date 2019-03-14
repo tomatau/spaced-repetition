@@ -13,7 +13,7 @@ export default function PrivateRoute({ component, ...props }) {
           : (
             <Redirect
               to={{
-                pathname: '/login',
+                pathname: '/register',
                 state: { from: componentProps.location }
               }}
             />
