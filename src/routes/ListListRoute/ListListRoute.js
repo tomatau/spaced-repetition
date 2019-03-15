@@ -16,7 +16,6 @@ class ListListRoute extends Component {
       .catch(error => {
         if (error.error === 'Unauthorized request') {
           TokenService.clearAuthToken()
-          // TODO: flash message stating user was logged out?
           this.props.history.push('/login')
         }
         this.context.setError(error)

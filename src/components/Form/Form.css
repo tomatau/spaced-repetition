@@ -33,4 +33,5 @@ form > button {
   color: var(--red);
   font-family: Arial;
   font-weight: bold;
+  margin: 0 4px;
 }

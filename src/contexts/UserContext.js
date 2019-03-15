@@ -95,8 +95,7 @@ export class UserProvider extends Component {
         })
       })
       .catch(err => {
-        console.info('refresh token request error')
-        console.error(err)
+        this.setError(err)
       })
   }
 

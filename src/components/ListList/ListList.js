@@ -14,9 +14,9 @@ class ListList extends Component {
         {lists.map(list =>
           <li key={list.id} className='ListList__item'>
             <Link to={`/list/${list.id}`}>
-              <h2 className='ListList__item-name'>
+              <h3 className='ListList__item-name'>
                 {list.name}
-              </h2>
+              </h3>
               <span className='ListList__item-score'>
                 Current score: {list.score}
               </span>
@@ -39,9 +39,12 @@ class ListList extends Component {
     const { lists } = this.props
     return (
       <div className='ListList'>
-        <h2 className='ListList__title'>
-          Choose a language to practice!
-        </h2>
+        <header className='ListList__title'>
+          <h2>
+            Your languages
+          </h2>
+          <p>Choose a language to practice using spaced repetition from the options below.</p>
+        </header>
         {lists.length
           ? this.renderLists()
           : this.renderNoLists()}

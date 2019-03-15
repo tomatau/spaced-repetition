@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
 import { Route, Switch } from 'react-router-dom'
-// import IdleService from '../../services/idle-service'
-// import TokenService from '../../services/token-service'
-// import AuthApiService from '../../services/auth-api-service'
 import Header from '../Header/Header'
 import PrivateRoute from '../PrivateRoute/PrivateRoute'
 import PublicOnlyRoute from '../PublicOnlyRoute/PublicOnlyRoute'
@@ -13,30 +10,8 @@ import LearningRoute from '../../routes/LearningRoute/LearningRoute'
 import NotFoundRoute from '../../routes/NotFoundRoute/NotFoundRoute'
 import './App.css'
 
-class App extends Component {
+export default class App extends Component {
   state = { hasError: false }
-    // IdleService.setIdleCallback(this.logoutFromIdle)
-
-  // componentDidMount() {
-  //   if (TokenService.hasAuthToken()) {
-  //     IdleService.regiserIdleTimerResets()
-  //     TokenService.queueCallbackBeforeExpiry(() => {
-  //       AuthApiService.refreshToken()
-  //     })
-  //   }
-  // }
-
-  // componentWillUnmount() {
-  //   IdleService.unRegisterIdleResets()
-  //   TokenService.clearCallbackBeforeExpiry()
-  // }
-
-  // logoutFromIdle = () => {
-  //   TokenService.clearAuthToken()
-  //   TokenService.clearCallbackBeforeExpiry()
-  //   IdleService.unRegisterIdleResets()
-  //   this.forceUpdate()
-  // }
 
   static getDerivedStateFromError(error) {
     console.error(error)
@@ -79,5 +54,3 @@ class App extends Component {
     );
   }
 }
-
-export default App

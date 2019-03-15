@@ -16,7 +16,7 @@ export function Section({ className, wider, ...props }) {
 
 export function FullWidth({ className, darker, ...props }) {
   return (
-    <div
+    <section
       className={cx({
         'Layout__full-width': true,
         'Layout__full-width--darker': darker,
