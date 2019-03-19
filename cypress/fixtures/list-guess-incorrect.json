@@ -1,0 +1,6 @@
+{
+  "nextWord": "test-next-word-from-incorrect-guess",
+  "listScore": 123,
+  "answer": "test-answer-from-incorrect-guess",
+  "isCorrect": false
+}

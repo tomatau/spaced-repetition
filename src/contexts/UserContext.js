@@ -18,15 +18,22 @@ export default UserContext
 export class UserProvider extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      user: {},
-      error: null,
-    };
+    const state = { user: {}, error: null }
+
+    const jwtPayload = TokenService.parseAuthToken()
+
+    if (jwtPayload)
+      state.user = {
+        id: jwtPayload.user_id,
+        name: jwtPayload.name,
+        username: jwtPayload.sub,
+      }
+
+    this.state = state;
     IdleService.setIdleCallback(this.logoutBecauseIdle)
   }
 
   componentDidMount() {
-    this.loadUserFromToken()
     if (TokenService.hasAuthToken()) {
       IdleService.regiserIdleTimerResets()
       TokenService.queueCallbackBeforeExpiry(() => {
@@ -55,7 +62,12 @@ export class UserProvider extends Component {
 
   processLogin = authToken => {
     TokenService.saveAuthToken(authToken)
-    this.loadUserFromToken()
+    const jwtPayload = TokenService.parseAuthToken()
+    this.setUser({
+      id: jwtPayload.user_id,
+      name: jwtPayload.name,
+      username: jwtPayload.sub,
+    })
     IdleService.regiserIdleTimerResets()
     TokenService.queueCallbackBeforeExpiry(() => {
       this.fetchRefreshToken()
@@ -74,17 +86,6 @@ export class UserProvider extends Component {
     TokenService.clearCallbackBeforeExpiry()
     IdleService.unRegisterIdleResets()
     this.setUser({ idle: true })
-  }
-
-  loadUserFromToken = () => {
-    const jwtPayload = TokenService.parseAuthToken()
-    if (jwtPayload) {
-      this.setUser({
-        id: jwtPayload.user_id,
-        name: jwtPayload.name,
-        username: jwtPayload.sub,
-      })
-    }
   }
 
   fetchRefreshToken = () => {

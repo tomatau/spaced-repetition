@@ -7,7 +7,7 @@ export function makeLoginToken() {
   }
   return jwt.sign(loginUser, 'test-secret', {
     subject: 'test-username',
-    expiresIn: '30s',
+    expiresIn: '2m',
     algorithm: 'HS256',
   })
 }

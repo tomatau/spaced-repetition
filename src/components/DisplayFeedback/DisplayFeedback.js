@@ -39,7 +39,7 @@ class DisplayFeedback extends Component {
           was{' '}
           <span className='DisplayFeedback__answer'>
             {answer}
-          </span>
+          </span>{' '}
           <br/>
           and you chose{' '}
           <span className='DisplayFeedback__guess'>
