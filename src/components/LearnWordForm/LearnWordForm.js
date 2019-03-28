@@ -1,15 +1,11 @@
 import React, { Component } from 'react'
-import ListApiService from '../../services/list-api-service'
-import ListContext from '../../contexts/ListContext'
+import LanguageApiService from '../../services/language-api-service'
+import LearningContext from '../../contexts/LearningContext'
 import { Input, Label } from '../Form/Form'
 import Button from '../Button/Button'
 
 class LearnWordForm extends Component {
-  static defaultProps = {
-    listId: null
-  }
-
-  static contextType = ListContext
+  static contextType = LearningContext
 
   state = { error: null }
 
@@ -17,14 +13,16 @@ class LearnWordForm extends Component {
 
   handleSubmit = ev => {
     ev.preventDefault()
-    const { listId } = this.props
     const { guess } = ev.target
 
     this.context.setGuess(guess.value)
-    ListApiService.postGuess(listId, guess.value)
+
+    LanguageApiService.postGuess(guess.value)
       .then(head => {
         this.context.setPrevWord(this.context.nextWord)
-        this.context.setScore(head.listScore)
+        this.context.setTotalScore(head.totalScore)
+        this.context.setWordCorrectCount(head.wordCorrectCount)
+        this.context.setWordIncorrectCount(head.wordIncorrectCount)
         this.context.setNextWord(head.nextWord)
         this.context.setIsCorrect(head.isCorrect)
         this.context.setAnswer(head.answer)
@@ -62,7 +60,7 @@ class LearnWordForm extends Component {
           />
         </div>
         <Button type='submit'>
-          Submit your translation
+          Submit your answer
         </Button>
       </form>
     )

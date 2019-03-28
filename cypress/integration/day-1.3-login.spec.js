@@ -130,11 +130,14 @@ describe('Day 1 - Login', function() {
           .as('refreshRequest')
           .route({
             method: 'GET',
-            url: '/api/list',
+            url: '/api/language',
             status: 200,
-            response: [],
+            response: {
+              language: {},
+              words: [],
+            },
           })
-          .as('listRequest')
+          .as('languageRequest')
       })
 
       it(`stores token in localStorage and redirects to /`, () => {

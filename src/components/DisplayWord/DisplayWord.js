@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import ListContext from '../../contexts/ListContext'
+import LearningContext from '../../contexts/LearningContext'
 import './DisplayWord.css'
 
 class DisplayWord extends Component {
-  static contextType = ListContext
+  static contextType = LearningContext
 
   render() {
     const { nextWord } = this.context

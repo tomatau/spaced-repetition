@@ -1,11 +1,9 @@
 .App {
   min-height: 100vh;
   padding-top: 20px;
-  padding-bottom: 20px;
-  font-size: calc(10px + 1vmin);
+  font-size: var(--font-size);
 }
 
 .App__main {
   margin-top: 20px;
-  padding-bottom: 40px;
 }

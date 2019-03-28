@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import cx from 'classnames'
-import ListContext from '../../contexts/ListContext'
+import LearningContext from '../../contexts/LearningContext'
 import Button from '../Button/Button'
 import './DisplayFeedback.css'
 
 class DisplayFeedback extends Component {
-  static contextType = ListContext
+  static contextType = LearningContext
 
   nextButton = React.createRef()
 

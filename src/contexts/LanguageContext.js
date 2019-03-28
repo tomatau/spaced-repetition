@@ -1,18 +1,20 @@
 import React, { Component } from 'react'
 
-const ListListContext = React.createContext({
-  lists: [],
+const LanguageContext = React.createContext({
+  language: {},
+  words: [],
   error: null,
   setError: () => {},
   clearError: () => {},
   setLists: () => {},
+  setWords: () => {},
 })
 
-export default ListListContext
+export default LanguageContext
 
-export class ListListProvider extends Component {
+export class LanguageProvider extends Component {
   state = {
-    lists: [],
+    language: [],
     error: null,
   };
 
@@ -25,24 +27,30 @@ export class ListListProvider extends Component {
     this.setState({ error: null })
   }
 
-  setLists = lists => {
-    this.setState({ lists })
+  setLanguage = language => {
+    this.setState({ language })
+  }
+
+  setWords = words => {
+    this.setState({ words })
   }
 
   render() {
     const value = {
       // values
-      lists: this.state.lists,
+      language: this.state.language,
+      words: this.state.words,
       error: this.state.error,
       // methods
       setError: this.setError,
       clearError: this.clearError,
-      setLists: this.setLists,
+      setLanguage: this.setLanguage,
+      setWords: this.setWords,
     }
     return (
-      <ListListContext.Provider value={value}>
+      <LanguageContext.Provider value={value}>
         {this.props.children}
-      </ListListContext.Provider>
+      </LanguageContext.Provider>
     )
   }
 }

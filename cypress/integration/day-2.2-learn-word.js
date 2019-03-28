@@ -5,42 +5,40 @@ describe(`Day 2 - Learn words`, () => {
    * @abstract:Learn the meaning of the word
    *
    * @criteria
-      On the next word to learn page for a list:
+      On the next word to learn page for a language:
       - I am presented with a word to learn
       - My score is always displayed
       - I am given an input box to type the meaning of the word
       - I am given a submit button to submit my answer
   */
   describe(`User story: Presented with word`, () => {
-    const listId = 1
-
     beforeEach(() => {
       cy.server()
         .route({
           method: 'GET',
-          url: `/api/list/${listId}/head`,
+          url: `/api/language/head`,
           status: 200,
-          response: 'fixture:list-head.json',
+          response: 'fixture:language-head.json',
         })
-        .as('listHeadRequest')
+        .as('languageHeadRequest')
 
       cy.login()
-        .visit(`/list/${listId}`)
-        .wait('@listHeadRequest')
+        .visit(`/learn`)
+        .wait('@languageHeadRequest')
     })
 
     it('displays the current score and h2 with next word', () => {
-      cy.fixture('list-head.json').then(listHeadFixture => {
+      cy.fixture('language-head.json').then(languageHeadFixture => {
         cy.get('main').within($main => {
           cy.get('p').eq(0)
             .should(
               'have.text',
-              `Your current score is: ${listHeadFixture.listScore}`,
+              `Your total score is: ${languageHeadFixture.totalScore}`,
             )
           cy.get('h2')
             .should('have.text', 'Translate the word:')
             .siblings('span')
-            .should('have.text', listHeadFixture.nextWord)
+            .should('have.text', languageHeadFixture.nextWord)
         })
       })
     })
@@ -55,7 +53,23 @@ describe(`Day 2 - Learn words`, () => {
           .and('have.attr', 'required', 'required')
 
         cy.get('button[type=submit]')
-          .should('have.text', 'Submit your translation')
+          .should('have.text', 'Submit your answer')
+      })
+    })
+
+    it(`displays footer with correct and incorrect count`, () => {
+      cy.fixture('language-head.json').then(languageHeadFixture => {
+        cy.get('main footer').within($footer => {
+          cy.root()
+            .should(
+              'contain',
+              `You have answered this word correctly ${languageHeadFixture.wordCorrectCount} times.`,
+            )
+            .and(
+              'contain',
+              `You have answered this word incorrectly ${languageHeadFixture.wordIncorrectCount} times.`,
+            )
+        })
       })
     })
   })
@@ -64,33 +78,31 @@ describe(`Day 2 - Learn words`, () => {
    * @abstract:Feedback to my answer
    *
    * @criteria
-      On the next word to learn page for a list:
+      On the next word to learn page for a language:
       - I can submit my answer
       - After submitting, I get feedback whether i was correct
       - After submitting, I get feedback about the correct answer
       - My score is always displayed
   */
   describe(`User story: Answer feedback`, () => {
-    const listId = 1
-
     beforeEach(() => {
       cy.server()
         .route({
           method: 'GET',
-          url: `/api/list/${listId}/head`,
+          url: `/api/language/head`,
           status: 200,
-          response: 'fixture:list-head.json',
+          response: 'fixture:language-head.json',
         })
-        .as('listHeadRequest')
+        .as('languageHeadRequest')
     })
 
     context(`Given I submit my answer`, () => {
       beforeEach(() => {
         cy.route({
           method: 'POST',
-          url: `/api/list/${listId}/guess`,
+          url: `/api/language/guess`,
           status: 200,
-          response: 'fixture:list-guess-generic.json',
+          response: 'fixture:language-guess-generic.json',
         })
           .as('postListGuess')
       })
@@ -98,8 +110,8 @@ describe(`Day 2 - Learn words`, () => {
       it(`submits my answer typed in the form`, () => {
         const guess = 'my-test-guess'
 
-        cy.login().visit(`/list/${listId}`)
-        cy.wait('@listHeadRequest')
+        cy.login().visit(`/learn`)
+        cy.wait('@languageHeadRequest')
 
         cy.get('main form').within($form => {
           cy.get('input#learn-guess-input')
@@ -122,13 +134,13 @@ describe(`Day 2 - Learn words`, () => {
       beforeEach(() => {
         cy.route({
           method: 'POST',
-          url: `/api/list/${listId}/guess`,
+          url: `/api/language/guess`,
           status: 200,
-          response: 'fixture:list-guess-incorrect.json',
+          response: 'fixture:language-guess-incorrect.json',
         })
           .as('postListGuessIncorrect')
 
-        cy.login().visit(`/list/${listId}`).wait('@listHeadRequest')
+        cy.login().visit(`/learn`).wait('@languageHeadRequest')
         cy.get('input#learn-guess-input').type(guess)
         cy.get('form').submit().wait('@postListGuessIncorrect')
       })
@@ -137,16 +149,16 @@ describe(`Day 2 - Learn words`, () => {
         //  cypress fixtures has buggy behaviour, this works around it o_O
         const fixtures = []
         Cypress.Promise.all([
-          cy.fixture('list-head.json').then(fx => fixtures.push(fx)),
-          cy.fixture('list-guess-incorrect.json').then(fx => fixtures.push(fx)),
+          cy.fixture('language-head.json').then(fx => fixtures.push(fx)),
+          cy.fixture('language-guess-incorrect.json').then(fx => fixtures.push(fx)),
         ]).then(() => {
-          const [listHeadFixture, incorrectFixture] = fixtures
+          const [languageHeadFixture, incorrectFixture] = fixtures
 
           cy.get('main').within($main => {
             cy.get('.DisplayScore p')
               .should(
                 'have.text',
-                `Your current score is: ${incorrectFixture.listScore}`,
+                `Your total score is: ${incorrectFixture.totalScore}`,
               )
             cy.get('h2')
               .should(
@@ -156,7 +168,7 @@ describe(`Day 2 - Learn words`, () => {
             cy.get('.DisplayFeedback p')
               .should(
                 'have.text',
-                `The correct translation for ${listHeadFixture.nextWord} was ${incorrectFixture.answer} and you chose ${guess}!`,
+                `The correct translation for ${languageHeadFixture.nextWord} was ${incorrectFixture.answer} and you chose ${guess}!`,
               )
             cy.get('button')
               .should(
@@ -174,13 +186,13 @@ describe(`Day 2 - Learn words`, () => {
       beforeEach(() => {
         cy.route({
           method: 'POST',
-          url: `/api/list/${listId}/guess`,
+          url: `/api/language/guess`,
           status: 200,
-          response: 'fixture:list-guess-correct.json',
+          response: 'fixture:language-guess-correct.json',
         })
           .as('postListGuessCorrect')
 
-        cy.login().visit(`/list/${listId}`).wait('@listHeadRequest')
+        cy.login().visit(`/learn`).wait('@languageHeadRequest')
         cy.get('input#learn-guess-input').type(guess)
         cy.get('form').submit().wait('@postListGuessCorrect')
       })
@@ -189,16 +201,16 @@ describe(`Day 2 - Learn words`, () => {
         //  cypress fixtures has buggy behaviour, this works around it o_O
         const fixtures = []
         Cypress.Promise.all([
-          cy.fixture('list-head.json').then(fx => fixtures.push(fx)),
-          cy.fixture('list-guess-correct.json').then(fx => fixtures.push(fx)),
+          cy.fixture('language-head.json').then(fx => fixtures.push(fx)),
+          cy.fixture('language-guess-correct.json').then(fx => fixtures.push(fx)),
         ]).then(() => {
-          const [listHeadFixture, incorrectFixture] = fixtures
+          const [languageHeadFixture, incorrectFixture] = fixtures
 
           cy.get('main').within($main => {
             cy.get('.DisplayScore p')
               .should(
                 'have.text',
-                `Your current score is: ${incorrectFixture.listScore}`,
+                `Your total score is: ${incorrectFixture.totalScore}`,
               )
             cy.get('h2')
               .should(
@@ -208,7 +220,7 @@ describe(`Day 2 - Learn words`, () => {
             cy.get('.DisplayFeedback p')
               .should(
                 'have.text',
-                `The correct translation for ${listHeadFixture.nextWord} was ${incorrectFixture.answer} and you chose ${guess}!`,
+                `The correct translation for ${languageHeadFixture.nextWord} was ${incorrectFixture.answer} and you chose ${guess}!`,
               )
             cy.get('button')
               .should(
@@ -225,31 +237,29 @@ describe(`Day 2 - Learn words`, () => {
    * @abstract:See button for next word
    *
    * @criteria
-      On the next word to learn page for a list:
+      On the next word to learn page for a language:
       - I can see a button for the next word
       - I can click a button to go to the next word to learn
   */
   describe(`User story: Go to next word`, () => {
-    const listId = 1
-
     beforeEach(() => {
       cy.server()
         .route({
           method: 'GET',
-          url: `/api/list/${listId}/head`,
+          url: `/api/language/head`,
           status: 200,
-          response: 'fixture:list-head.json',
+          response: 'fixture:language-head.json',
         })
-        .as('listHeadRequest')
+        .as('languageHeadRequest')
         .route({
           method: 'POST',
-          url: `/api/list/${listId}/guess`,
+          url: `/api/language/guess`,
           status: 200,
-          response: 'fixture:list-guess-generic.json',
+          response: 'fixture:language-guess-generic.json',
         })
         .as('postListGuess')
 
-      cy.login().visit(`/list/${listId}`).wait('@listHeadRequest')
+      cy.login().visit(`/learn`).wait('@languageHeadRequest')
       cy.get('input#learn-guess-input').type('anything')
       cy.get('form').submit().wait('@postListGuess')
     })
@@ -257,17 +267,17 @@ describe(`Day 2 - Learn words`, () => {
     it(`displays another word after clicking the 'next' button`, () => {
       cy.get('main button').click()
 
-      cy.fixture('list-guess-generic.json').then(listHeadFixture => {
+      cy.fixture('language-guess-generic.json').then(languageHeadFixture => {
         cy.get('main').within($main => {
           cy.get('p').eq(0)
             .should(
               'have.text',
-              `Your current score is: ${listHeadFixture.listScore}`,
+              `Your total score is: ${languageHeadFixture.totalScore}`,
             )
           cy.get('h2')
             .should('have.text', 'Translate the word:')
             .siblings('span')
-            .should('have.text', listHeadFixture.nextWord)
+            .should('have.text', languageHeadFixture.nextWord)
         })
       })
 
@@ -280,7 +290,7 @@ describe(`Day 2 - Learn words`, () => {
           .and('have.attr', 'required', 'required')
 
         cy.get('button[type=submit]')
-          .should('have.text', 'Submit your translation')
+          .should('have.text', 'Submit your answer')
       })
     })
   })

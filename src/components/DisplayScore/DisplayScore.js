@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
-import ListContext from '../../contexts/ListContext'
+import LearningContext from '../../contexts/LearningContext'
 import './DisplayScore.css'
 
 class DisplayScore extends Component {
-  static contextType = ListContext
+  static contextType = LearningContext
 
   render() {
-    const { score } = this.context
+    const { totalScore } = this.context
     return (
       <div className='DisplayScore'>
         <p>
-          Your current score is:{' '}
+          Your total score is:{' '}
           <span className='DisplayWord__score'>
-            {score}
+            {totalScore}
           </span>
         </p>
       </div>

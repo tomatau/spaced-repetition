@@ -1,9 +1,9 @@
 import config from '../config'
 import TokenService from './token-service'
 
-const ListApiService = {
-  getLists() {
-    return fetch(`${config.API_ENDPOINT}/list/`, {
+const LanguageApiService = {
+  getLanguage() {
+    return fetch(`${config.API_ENDPOINT}/language`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
@@ -16,8 +16,8 @@ const ListApiService = {
           : res.json()
       )
   },
-  getHead(listId) {
-    return fetch(`${config.API_ENDPOINT}/list/${listId}/head`, {
+  getHead() {
+    return fetch(`${config.API_ENDPOINT}/language/head`, {
       method: 'GET',
       headers: {
         'content-type': 'application/json',
@@ -30,8 +30,8 @@ const ListApiService = {
           : res.json()
       )
   },
-  postGuess(listId, guess) {
-    return fetch(`${config.API_ENDPOINT}/list/${listId}/guess`, {
+  postGuess(guess) {
+    return fetch(`${config.API_ENDPOINT}/language/guess`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -47,4 +47,4 @@ const ListApiService = {
   },
 }
 
-export default ListApiService
+export default LanguageApiService
