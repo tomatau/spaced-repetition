@@ -15,18 +15,30 @@ class Language extends Component {
       <ul className='Language__word-list'>
         {words.map(word =>
           <li key={word.id} className='Language__word'>
-            <h4 className='Language__word-translation'>
-              {word.translation}
+            <h4 className='Language__word-original'>
+              {word.original}
             </h4>
             <div className='Language__word-counts'>
               <p className='Language__word-correct-count'>
-                <FontAwesomeIcon fixedWidth icon='check' title='correct answer count:' />
-                <span className="sr-only">correct answer count: </span>
+                <FontAwesomeIcon
+                  fixedWidth
+                  icon='check'
+                  title='correct answer count:'
+                />
+                <span className="sr-only">
+                  correct answer count:{' '}
+                </span>
                 <strong>{word.correct_count}</strong>
               </p>
               <p className='Language__word-incorrect-count'>
-                <FontAwesomeIcon fixedWidth icon='times' title='incorrect answer count:' />
-                <span className="sr-only">incorrect answer count: </span>
+                <FontAwesomeIcon
+                  fixedWidth
+                  icon='times'
+                  title='incorrect answer count:'
+                />
+                <span className="sr-only">
+                  incorrect answer count:{' '}
+                </span>
                 <strong>{word.incorrect_count}</strong>
               </p>
             </div>

@@ -51,7 +51,7 @@
   padding: 5px 0 8px;
 }
 
-.Language__word-translation {
+.Language__word-original {
   flex: 3;
   color: var(--light-blue);
 }
