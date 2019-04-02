@@ -4,10 +4,6 @@
   box-sizing: border-box;
 }
 
-html {
-  height: 100vh;
-}
-
 body {
   margin: 0;
   padding: 0;
@@ -18,46 +14,4 @@ body {
 
 :root {
   --font-size: calc(10px + 1vmin);
-  /* setup a colour pallet to use throughout styles */
-  --black: #2D2A2A;
-  --dark: #483D3F;
-  --dark-grey: #605A57;
-  --grey: #7C726E;
-  --light-grey: #A39A92;
-  --pale-grey: #f5f3f2;
-  --light: #D0D3D6;
-  --white: #fdfeff;
-  --yellow: #ECA72C;
-  --green: #367d2e;
-  --orange: #c75000;
-  --red: #8d0426;
-  --light-blue: #0472bf;
-  --dark-green: #255020;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  color: var(--black);
-  margin: 0;
-}
-
-p {
-  color: var(--dark);
-}
-
-a,
-a:visited,
-a:focus {
-  color: var(--orange);
-}
-
-a:hover {
-  color: var(--green);
-}
-
-[role=alert] * {
-  color: var(--red);
-}
-
-section > h2 {
-  margin-bottom: 20px;
 }

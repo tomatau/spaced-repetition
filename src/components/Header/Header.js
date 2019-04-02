@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TokenService from '../../services/token-service'
 import UserContext from '../../contexts/UserContext'
-import * as Layout from '../Layout/Layout'
 import './Header.css'
 
 class Header extends Component {
@@ -15,10 +13,8 @@ class Header extends Component {
 
   renderLogoutLink() {
     return (
-      <div className='Header__logged-in'>
-        <span className='Header__user-name'>
-          <FontAwesomeIcon icon='user-circle' />
-          {' '}
+      <div>
+        <span>
           {this.context.user.name}
         </span>
         <nav>
@@ -36,7 +32,7 @@ class Header extends Component {
     return (
       <nav>
         <Link to='/login'>Login</Link>
-        {' | '}
+        {' '}
         <Link to='/register'>Sign up</Link>
       </nav>
     )
@@ -44,18 +40,16 @@ class Header extends Component {
 
   render() {
     return (
-      <Layout.Header className='Header'>
-        <h1 className='Header__title'>
+      <header>
+        <h1>
           <Link to='/'>
             Spaced repetition
-            {' '}
-            <FontAwesomeIcon icon='space-shuttle' />
           </Link>
         </h1>
         {TokenService.hasAuthToken()
           ? this.renderLogoutLink()
           : this.renderLoginLink()}
-      </Layout.Header>
+      </header>
     );
   }
 }

@@ -23,9 +23,9 @@ export default class App extends Component {
     return (
       <div className='App'>
         <Header />
-        <main className='App__main'>
+        <main>
           {hasError && (
-            <p className='red'>There was an error! Oh no!</p>
+            <p>There was an error! Oh no!</p>
           )}
           <Switch>
             <PrivateRoute
