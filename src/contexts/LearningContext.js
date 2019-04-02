@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 
 const initialState = {
-  score: 0,
+  totalScore: 0,
+  wordCorrectCount: 0,
+  wordIncorrectCount: 0,
   nextWord: null,
   guess: null,
   prevWord: null,
@@ -10,21 +12,23 @@ const initialState = {
   error: null,
 }
 
-const ListContext = React.createContext({
+const LearningContext = React.createContext({
   ...initialState,
   setError: () => { },
   clearError: () => { },
   setNextWord: () => { },
-  setScore: () => { },
+  setTotalScore: () => { },
+  setWordCorrectCount: () => { },
+  setWordIncorrectCount: () => { },
   setGuess: () => { },
   setAnswer: () => { },
   setIsCorrect: () => { },
   reset: () => { },
 })
 
-export default ListContext
+export default LearningContext
 
-export class ListProvider extends Component {
+export class LearningProvider extends Component {
   state = {
     ...initialState,
   };
@@ -38,8 +42,16 @@ export class ListProvider extends Component {
     this.setState({ error: null })
   }
 
-  setScore = score => {
-    this.setState({ score })
+  setTotalScore = totalScore => {
+    this.setState({ totalScore })
+  }
+
+  setWordCorrectCount = wordCorrectCount => {
+    this.setState({ wordCorrectCount })
+  }
+
+  setWordIncorrectCount = wordIncorrectCount => {
+    this.setState({ wordIncorrectCount })
   }
 
   setNextWord = nextWord => {
@@ -71,7 +83,9 @@ export class ListProvider extends Component {
   render() {
     const value = {
       // values
-      score: this.state.score,
+      totalScore: this.state.totalScore,
+      wordCorrectCount: this.state.wordCorrectCount,
+      wordIncorrectCount: this.state.wordIncorrectCount,
       nextWord: this.state.nextWord,
       guess: this.state.guess,
       prevWord: this.state.prevWord,
@@ -81,7 +95,9 @@ export class ListProvider extends Component {
       // methods
       setError: this.setError,
       clearError: this.clearError,
-      setScore: this.setScore,
+      setTotalScore: this.setTotalScore,
+      setWordCorrectCount: this.setWordCorrectCount,
+      setWordIncorrectCount: this.setWordIncorrectCount,
       setNextWord: this.setNextWord,
       setGuess: this.setGuess,
       setPrevWord: this.setPrevWord,
@@ -90,9 +106,9 @@ export class ListProvider extends Component {
       reset: this.reset,
     }
     return (
-      <ListContext.Provider value={value}>
+      <LearningContext.Provider value={value}>
         {this.props.children}
-      </ListContext.Provider>
+      </LearningContext.Provider>
     )
   }
 }

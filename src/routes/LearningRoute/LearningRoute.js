@@ -1,26 +1,27 @@
 import React, { Component } from 'react'
-import ListApiService from '../../services/list-api-service'
+import LanguageApiService from '../../services/language-api-service'
 import TokenService from '../../services/token-service'
-import ListContext from '../../contexts/ListContext'
+import LearningContext from '../../contexts/LearningContext'
 import * as Layout from '../../components/Layout/Layout'
 import LearnWordForm from '../../components/LearnWordForm/LearnWordForm'
 import DisplayWord from '../../components/DisplayWord/DisplayWord'
 import DisplayFeedback from '../../components/DisplayFeedback/DisplayFeedback'
 import DisplayScore from '../../components/DisplayScore/DisplayScore'
+import DisplayCounts from '../../components/DisplayCounts/DisplayCounts'
 import './LearningRoute.css'
 
 class LearningRoute extends Component {
-  static contextType = ListContext
+  static contextType = LearningContext
 
   componentDidMount() {
-    const { listId } = this.props.match.params
-
     this.context.reset()
 
-    ListApiService.getHead(listId)
+    LanguageApiService.getHead()
       .then(head => {
+        this.context.setTotalScore(head.totalScore)
+        this.context.setWordCorrectCount(head.wordCorrectCount)
+        this.context.setWordIncorrectCount(head.wordIncorrectCount)
         this.context.setNextWord(head.nextWord)
-        this.context.setScore(head.listScore)
       })
       .catch(error => {
         if (error.error === 'Unauthorized request') {
@@ -32,13 +33,12 @@ class LearningRoute extends Component {
   }
 
   renderForm() {
-    const { listId } = this.props.match.params
     return <>
       <Layout.FullWidth>
         <DisplayWord />
       </Layout.FullWidth>
       <Layout.Section className='LearningRoute__form'>
-        <LearnWordForm listId={listId} />
+        <LearnWordForm />
       </Layout.Section>
     </>
   }
@@ -52,16 +52,16 @@ class LearningRoute extends Component {
   }
 
   render() {
-    const { isCorrect } = this.context
+    const showForm = this.context.isCorrect == null
     return (
-      <>
+      <div className='LearningRoute'>
         <Layout.FullWidth darker>
           <DisplayScore />
         </Layout.FullWidth>
-        {isCorrect == null
-          ? this.renderForm()
-          : this.renderFeedback()}
-      </>
+        {showForm && this.renderForm()}
+        {!showForm && this.renderFeedback()}
+        {showForm && <footer><DisplayCounts /></footer>}
+      </div>
     );
   }
 }

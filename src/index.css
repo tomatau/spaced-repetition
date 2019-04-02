@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+html {
+  height: 100vh;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -13,6 +17,7 @@ body {
 }
 
 :root {
+  --font-size: calc(10px + 1vmin);
   /* setup a colour pallet to use throughout styles */
   --black: #2D2A2A;
   --dark: #483D3F;
@@ -23,7 +28,7 @@ body {
   --light: #D0D3D6;
   --white: #fdfeff;
   --yellow: #ECA72C;
-  --green: #398031;
+  --green: #367d2e;
   --orange: #c75000;
   --red: #8d0426;
   --light-blue: #0472bf;

@@ -5,6 +5,7 @@
 
 .Header__title {
   margin: 20px 0 10px;
+  height: 1em;
 }
 
 .Header__title a {
@@ -14,11 +15,13 @@
 
 .Header nav {
   text-align: right;
+  height: var(--font-size);
 }
 
 .Header__logged-in {
   display: flex;
   justify-content: space-between;
+  height: var(--font-size);
 }
 
 .Header__user-name {
